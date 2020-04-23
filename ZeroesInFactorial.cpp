@@ -1,6 +1,14 @@
 // https://www.codewars.com/kata/55c4eb777e07c13528000021/
-//FIND NUMBER OF ZEROES IN FACTORIAL OF NUMBER IN BASE B
+//FIND NUMBER OF ZEROES IN FACTORIAL OF NUMBER N IN BASE B (B may or may not be prime)
+//NOTE: FORMULA
+/*
+	1.) Find all prime factors P=(p1, p2, . . ., pn) and their frequency (m) of base B
+	2.) Find sum of floor(n/(p^i)) {p^i<= n; i++}. Do this for all pk in P
+	3.) Final answer =  Min (1/m * sum) for all prime factors of base B.
 
+	See code and math exchange example to relate
+*/
+//for eg : https://math.stackexchange.com/questions/226868/what-is-the-number-of-trailing-zeros-in-a-factorial-in-base-b
 // CPP program to find the largest power of k that divides n! {where k may not be prime}
 
 #include <vector>
