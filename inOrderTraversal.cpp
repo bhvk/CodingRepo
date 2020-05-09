@@ -1,7 +1,9 @@
 //https://zhang-xiao-mu.blog/2019/07/20/tree-traversal-in-order-level-order/
 
 /*
-Pattern will be we first search the left branch of the tree and push all the left nodes to the stack. When we reach the nullptr, we pop the last element and put it in our result. Then we examine the right tree using the same pattern here.
+Pattern will be we first search the left branch of the tree and push all the left nodes to the stack.
+When we reach the nullptr, we pop the last element and put it in our result.
+Then we examine the right tree using the same pattern here.
 */
 
 /**
