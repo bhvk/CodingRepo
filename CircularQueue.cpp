@@ -70,6 +70,7 @@ public:
         if((tail+1)%n == head)
             return true;
         return false;
+        //OR simply  return ((tail+1)%n) == head;
     }
 };
 
