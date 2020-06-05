@@ -1,0 +1,51 @@
+*************************************
+//Some C++ Findings and STL common usage
+*************************************
+
+1. //Sort vector descending order
+sort(rbeing(vec), rend(vec));
+
+1.1* //Not advised but for single programs to include all libs and using single namespace
+#include <bits/stdc++.h>
+using namespace std;
+
+2. //assigns s with n repetitions of myChar (usage of string constructor)
+string s = string(n, myChar);
+
+3. //Clear of LSB 'set' bit (bit masking)
+int x = 436; //110110100
+x &= (x-1);  //x = x & (x-1);  //--> now x = 110110000 =  decimal 432
+
+4. //C : Using memset to set all 2-d array elements to 0
+int arr[m][n];
+memset(arr, 0, sizeof(arr));
+
+5. //To count number of set bits in given number
+__builtin_popcount(n);
+
+6. //stable_sort custom comparator
+stable_sort( v.begin(), v.end(), []
+(const string &s1, const string &s2){
+        return s1.size() < s2.size();
+});
+
+7. //partial sort with custom comparator (K closest points)
+vector<vector<int>> kClosest(vector<vector<int>>& ps, int K)
+{
+  partial_sort(begin(ps), begin(ps) + K, end(ps), [](vector<int> &a, vector<int> &b) {
+      return a[0]*a[0]+a[1]*a[1] < b[0]*b[0]+b[1]*b[1];
+  });
+  ps.resize(K);
+  return ps;
+}
+
+8. //n_th element
+REFER = https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/538/week-5-may-29th-may-31st/3345/discuss/217966/C++-3-lines-nth_element-O(n)
+std::nth_element() is an STL algorithm
+which rearranges the list in such a way such that
+the element at the nth position is the one which should be
+at that position if we sort the list.
+
+9. //adding elements of a vector to an unordered set
+std::vector<int> v;
+std::unordered_set<int> s(v.begin(), v.end());
