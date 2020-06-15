@@ -1,34 +1,33 @@
 *************************************
 //Some C++ Findings and STL common usage
-*************************************
-
+---------------------------------------------------------------------------------------------------------------------------------
 1. //Sort vector descending order
 sort(rbeing(vec), rend(vec));
-
+---------------------------------------------------------------------------------------------------------------------------------
 1.1* //Not advised but for single programs to include all libs and using single namespace
 #include <bits/stdc++.h>
 using namespace std;
-
+---------------------------------------------------------------------------------------------------------------------------------
 2. //assigns s with n repetitions of myChar (usage of string constructor)
 string s = string(n, myChar);
-
+---------------------------------------------------------------------------------------------------------------------------------
 3. //Clear of LSB 'set' bit (bit masking)
 int x = 436; //110110100
 x &= (x-1);  //x = x & (x-1);  //--> now x = 110110000 =  decimal 432
-
+---------------------------------------------------------------------------------------------------------------------------------
 4. //C : Using memset to set all 2-d array elements to 0
 int arr[m][n];
 memset(arr, 0, sizeof(arr));
-
+---------------------------------------------------------------------------------------------------------------------------------
 5. //To count number of set bits in given number
 __builtin_popcount(n);
-
+---------------------------------------------------------------------------------------------------------------------------------
 6. //stable_sort custom comparator
 stable_sort( v.begin(), v.end(), []
 (const string &s1, const string &s2){
         return s1.size() < s2.size();
 });
-
+---------------------------------------------------------------------------------------------------------------------------------
 7. //partial sort with custom comparator (K closest points)
 vector<vector<int>> kClosest(vector<vector<int>>& ps, int K)
 {
@@ -38,14 +37,58 @@ vector<vector<int>> kClosest(vector<vector<int>>& ps, int K)
   ps.resize(K);
   return ps;
 }
-
+---------------------------------------------------------------------------------------------------------------------------------
 8. //n_th element
 REFER = https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/538/week-5-may-29th-may-31st/3345/discuss/217966/C++-3-lines-nth_element-O(n)
 std::nth_element() is an STL algorithm
 which rearranges the list in such a way such that
 the element at the nth position is the one which should be
 at that position if we sort the list.
-
+---------------------------------------------------------------------------------------------------------------------------------
 9. //adding elements of a vector to an unordered set
 std::vector<int> v;
 std::unordered_set<int> s(v.begin(), v.end());
+---------------------------------------------------------------------------------------------------------------------------------
+10. //comparisons of sorts
+std::nth_element -> uses modified Quickselect, which provides O(N) complexity regardless of M.
+
+std::partial_sort -> uses Heapselect, which provides better performance than Quickselect for small M.
+As a side effect, the end state of Heapselect leaves you with a heap, which means that you get the first half of the Heapsort algorithm "for free".
+
+std::partial_sort is optimized for the case where M is a small constant relative to N.
+For example, taking the top 10 items from a very large variable-length list. It is not optimized for the other cases.
+
+In a race between std::partial_sort and std::nth_element + std::sort, std::partial_sort
+jumps out to an early lead (small M) but is overtaken by std::nth_element + std::sort once M is no longer small.
+---------------------------------------------------------------------------------------------------------------------------------
+11. //NOTE : STACK and ARRAY in STL does NOT have .clear() method.
+---------------------------------------------------------------------------------------------------------------------------------
+12. //upper_bound (OlogN): returns an iterator pointing to the first element in the range [first, last)
+//that is greater than value, or last if no such element is found.
+//For Example:
+unordered_map<int,map<int,int> ump;
+auto it = ump[index].upper_bound(value);
+it--;
+return it->second;
+//Example 2:
+std::vector<int> v;
+v.upper_bound(v.begin(), v.end(), value)
+---------------------------------------------------------------------------------------------------------------------------------
+13. fatal error: expected parameter declarator
+private:
+    vector<bool> visited(100, false);
+//not allowed             ^
+//It should rather be:
+vector<bool> visited = std::vector(100,false);
+---------------------------------------------------------------------------------------------------------------------------------
+14. //In case, you want to print false instead of 0,then you have to sets the boolalpha format flag for the str stream.
+std::cout << std::boolalpha << false << std::endl;
+---------------------------------------------------------------------------------------------------------------------------------
+15. //To print a variable's type in standard C++
+#include <typeinfo>
+std::cout << typeid(a).name() << '\n';
+/*
+You might have to activate RTTI in your compiler options for this to work. Additionally, the output of this depends on the compiler.
+It might be a raw type name or a name mangling symbol or anything in between.
+https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-type-in-standard-c*/
+---------------------------------------------------------------------------------------------------------------------------------
