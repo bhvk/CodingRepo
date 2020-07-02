@@ -115,3 +115,17 @@ for(int i=0; i<=rowIndex; ++i)
     ps[i].insert(ps[i].end(), v.begin(), v.end());
     // ps[i].insert(v.begin(), v.end());  //WRONG BECAUSE INSERT POS required : ps[i].end();
 }
+---------------------------------------------------------------------------------------------------------------------------------
+18. // FastIO in C++
+static auto fastio = [](){
+  // turn off sync
+    std::ios::sync_with_stdio(false);
+  // untie in/out streams
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return nullptr;
+}();
+---------------------------------------------------------------------------------------------------------------------------------
+19. //MODULUS : To get a%k where a->negative and k->positive wi
+((arr[i] % k)+k)%k
+---------------------------------------------------------------------------------------------------------------------------------
