@@ -94,6 +94,7 @@ https://stackoverflow.com/questions/81870/is-it-possible-to-print-a-variables-ty
 ---------------------------------------------------------------------------------------------------------------------------------
 16. /* BFS Template */
 int level = START; //0 or 1 or whatever
+q.push(initial_node);
 while(!q.empty())
 {
     int sz = q.size();
@@ -128,4 +129,68 @@ static auto fastio = [](){
 ---------------------------------------------------------------------------------------------------------------------------------
 19. //MODULUS : To get a%k where a->negative and k->positive wi
 ((arr[i] % k)+k)%k
+---------------------------------------------------------------------------------------------------------------------------------
+20. //Trie class for small alphas nodes_left_in_next_layerclass Trie
+{
+	public:
+    Trie* children[26];
+    bool endOfWord;
+
+    Trie()
+    {
+        endOfWord = false;
+        for (int i = 0; i < 26; ++i)
+        	children[i] = nullptr;
+    }
+
+    ~Trie()
+    {
+        for (int i = 0; i < 26; ++i)
+        	if(children[i]) delete children[i];
+    }
+
+    void insert(string s)
+    {
+      Trie* currNode = this;
+      for(char c : s)
+      {
+        if(!currNode->children[c-'a'])
+          currNode->children[c-'a'] = new Trie();
+        currNode = currNode->children[c-'a'];
+      }
+      currNode->endOfWord = true;
+    }
+};
+---------------------------------------------------------------------------------------------------------------------------------
+21. //Set vs. unordered set and why I can use set<vector<int>> but not unordered_set<vector<int>>
+
+refer : https://stackoverflow.com/a/52203931/7734112
+
+The reason why vector<int> can be as key in set because vector override operator<.
+But if you use unordered_set<vector<int>> you have to create a hash function for vector<int>,
+because vector does't have a hash function.
+
+//considerstruct VectorHash {
+    size_t operator()(const std::vector<int>& v) const {
+        std::hash<int> hasher;
+        size_t seed = 0;
+        for (int i : v) {
+            seed ^= hasher(i) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        }
+        return seed;
+    }
+};
+
+vector<vector<int>> two(){
+    //unordered_set<vector<int>> s; // error vector<int> doesn't  have hash function
+    unordered_set<vector<int>, VectorHash> s;
+    s.insert({1, 2});
+    s.insert({1, 3});
+    s.insert({1, 2});
+
+    for(const auto& vec:s)
+        cout<<vec<<endl;
+    // 1 2
+    // 1 3
+}
 ---------------------------------------------------------------------------------------------------------------------------------
