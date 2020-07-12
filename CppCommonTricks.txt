@@ -2,7 +2,7 @@
 //Some C++ Findings and STL common usage
 ---------------------------------------------------------------------------------------------------------------------------------
 1. //Sort vector descending order
-sort(rbeing(vec), rend(vec));
+sort(rbegin(vec), rend(vec));
 ---------------------------------------------------------------------------------------------------------------------------------
 1.1* //Not advised but for single programs to include all libs and using single namespace
 #include <bits/stdc++.h>
