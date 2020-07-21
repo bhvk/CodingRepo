@@ -228,3 +228,9 @@ A.) DFS on the graph and maintain states :
 if a node is encountered in DFS with state -1 means it has a back edge and thus a cycle.
 
 B.) Tarjans Strongly Connected components algorithm
+---------------------------------------------------------------------------------------------------------------------------------
+25. //is string contain any ASCII character, how to create hashmap
+vector<int> hash(128, 0);
+//to assign count of encountered char in string
+hash[(int)s[i]] = 1;  //note : (int) conversion used to get ascii - index
+---------------------------------------------------------------------------------------------------------------------------------
