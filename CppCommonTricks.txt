@@ -2,7 +2,8 @@
 //Some C++ Findings and STL common usage
 ---------------------------------------------------------------------------------------------------------------------------------
 1. //Sort vector descending order
-sort(rbegin(vec), rend(vec));
+// sort(rbegin(vec), rend(vec)); //quite slow
+sort(begin(vec), end(vec), greater<T>());
 ---------------------------------------------------------------------------------------------------------------------------------
 1.1* //Not advised but for single programs to include all libs and using single namespace
 #include <bits/stdc++.h>
@@ -160,6 +161,20 @@ static auto fastio = [](){
       }
       currNode->endOfWord = true;
     }
+
+    bool search(string word)
+    {
+        Trie* curr = this;
+        for(char c : word)
+        {
+            curr = curr->children[c-'a'];
+            if(!curr)
+                return false;
+        }
+        if(curr->isEndOfWord)
+            return true;
+        return false;
+    }
 };
 ---------------------------------------------------------------------------------------------------------------------------------
 21. //Set vs. unordered set and why I can use set<vector<int>> but not unordered_set<vector<int>>
@@ -170,7 +185,8 @@ The reason why vector<int> can be as key in set because vector override operator
 But if you use unordered_set<vector<int>> you have to create a hash function for vector<int>,
 because vector does't have a hash function.
 
-//considerstruct VectorHash {
+//consider
+struct VectorHash {
     size_t operator()(const std::vector<int>& v) const {
         std::hash<int> hasher;
         size_t seed = 0;
@@ -234,3 +250,154 @@ vector<int> hash(128, 0);
 //to assign count of encountered char in string
 hash[(int)s[i]] = 1;  //note : (int) conversion used to get ascii - index
 ---------------------------------------------------------------------------------------------------------------------------------
+26. //convert a string to lower case:
+transform(s.begin(), s.end(), s.begin(), ::tolower);
+---------------------------------------------------------------------------------------------------------------------------------
+27. //Binary search rule of thumb (Not to be followed religiously)
+As a rule of thumb, use m = l + (r-l)/2 with l = m + 1 and r = m, and use
+m = r - (r-l)/2 with l = m and r = m - 1. This can prevent m from getting stuck at r (or l) after the updating step.
+---------------------------------------------------------------------------------------------------------------------------------
+28. //Basic Union-Find
+class Solution
+{
+public:
+    vector<int> parent,Rank,count,groupCounts;	//Basic union find related storages (groupCounts stores # of groups of size `i`- our reverse mapping)
+    int Find(int x)
+    {
+        return parent[x]==x?x:parent[x]=Find(parent[x]);
+    }
+    void Union(int x,int y)			//Modified union to update groupCounts
+    {
+        int xset=Find(x),yset=Find(y);
+        if(xset!=yset)
+        {
+            groupCounts[count[xset]]--,groupCounts[count[yset]]--;//Union'ing would change the groupSize of current x and y groups.
+            count[xset]=count[yset]=count[xset]+count[yset];		//Size of groups of x and y now are now size(x)+size(y)
+            groupCounts[count[xset]]++;
+            Rank[xset]<Rank[yset]?parent[xset]=yset:parent[yset]=xset;
+            if(Rank[xset]==Rank[yset])
+                Rank[xset]++;
+        }
+    }
+    int findLatestStep(vector<int>& arr, int m)
+    {
+        parent.resize(arr.size()+1),Rank.resize(arr.size()+1,0);			//Few lines for basic initialization.
+        for(int i=1;i<=arr.size();i++)
+            parent[i]=i;
+        vector<bool> visited(arr.size()+1,false);
+        count.resize(arr.size()+1,1);			//Currently all groups are of size 1
+        groupCounts.resize(arr.size()+1,0);
+        int last=-1,step=1;						//Last stores the result, step is the current step (We can move this to a for loop)
+        for(int &i:arr)
+        {
+            groupCounts[1]++;					//We always chose a new number whose current groupSize is 1 so we increase the groupCount[1] (Reverse Map)
+            if(i+1<=arr.size()&&visited[i+1])	//Union i and i+1 if i+1'th bit was previously set
+                Union(i,i+1);
+            if(i-1>0&&visited[i-1])				//Union i and i-1 if i-1'th bit was previously set
+                Union(i,i-1);
+            visited[i]=true;
+            if(groupCounts[m])					//If counts of group of size m is > 0 (This means we have a group of size m at current step, update `last`)
+                last=step;
+            step++;
+        }
+        return last;
+    }
+};
+---------------------------------------------------------------------------------------------------------------------------------
+29. //2-D vector
+// Create a vector containing n vectors of size m.
+    vector<vector<int> > vec( n , vector<int> (m, 0));
+---------------------------------------------------------------------------------------------------------------------------------
+30. //to increment an array in various intervals list of queries
+//Given an array containing n integers and a value 1. m queries are given.
+//Each query has two values start and end. For each query, the problem is to increment the values from the start to end index
+//in the given array by the given value d.
+
+for(auto intv : req)  //where v = [interval_start, interval_end]
+{
+    arr[intv[0]] += d;
+    if(intv[1]+d < vec.size())
+        arr[intv[1]+d] -= 1;
+}
+--------------------------------------------------------------------------------
+31. //comparator inside a class using bool operator()
+
+-----> OR you can simply make a static compare function inside the class say :
+NOTE : static is IMPORTANT
+
+******* static bool compare(string a, string b){return a>b} ************
+
+------> OR-------
+class Solution
+{
+public:
+    string find(vector<int>& nums)
+    {
+      vector<string> arr;
+      sort(arr.begin(), arr.end(), compare());
+    }
+
+private:
+  struct compare
+  {
+    bool operator () (string a, string b)
+    {
+      string c = a + b;
+      string d = b + a;
+      return c > d;
+    }
+  }; //end of struct
+};//end of class solution
+--------------------------------------------------------------------------------
+32. //remove duplicates in vector
+
+v.erase(unique(v.begin(), v.end()), v.end());
+--------------------------------------------------------------------------------
+33. //ONION-PEEL ALGORITHM
+class Solution
+{
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges)
+    {
+        if(n==0)
+            return {};
+        if(n==1)
+            return {0};
+        vector<int>res;
+        vector<int>degrees(n,0);
+        vector<vector<int>>adj(n);
+        for(int i=0;i<edges.size();i++)
+        {
+            adj[edges[i][0]].push_back(edges[i][1]);//creating adjacent list
+            adj[edges[i][1]].push_back(edges[i][0]);
+            degrees[edges[i][1]]++;//updating how many edges each node has
+            degrees[edges[i][0]]++;
+        }
+        queue<int>queue;
+        for(int i=0; i<n; i++)
+        {
+            if(degrees[i]==1)//adding all the leave nodes
+                queue.push(i);
+        }
+        while(!queue.empty())
+        {
+            res.clear();// clear vector before we start traversing level by level.
+            int size=queue.size();
+            for(int i=0;i<size;i++)
+            {
+                int cur=queue.front();
+                queue.pop();
+                //adding nodes to vector.Goal is to get a vector of  just 1 or 2 nodes available.
+                res.push_back(cur);
+                for(auto &neighbor:adj[cur])
+                {
+                    degrees[neighbor]--;//removing current leave nodes
+                    if(degrees[neighbor]==1)//adding current leave nodes
+                        queue.push(neighbor);
+                }
+            }
+        }
+        return res;
+    }
+};
+--------------------------------------------------------------------------------
