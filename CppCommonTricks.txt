@@ -401,3 +401,30 @@ public:
     }
 };
 --------------------------------------------------------------------------------
+34. //How to remove element not at top from priority_queue?
+
+The best solution is to use std::set. Sets provide methods which allow it to be used both as a min/max heap (or a priority queue).
+
+std::set<int> pq;
+
+//accessing the smallest element(use as min heap)
+*pq.begin();
+
+//accessing the largest element (use as max heap)
+*pq.rbegin();
+Furthermore sets also allow random deletion.
+
+//to delete the integer '6'
+auto it = pq.find(6);
+pq.erase(it);
+
+--------------------------------------------------------------------------------
+35. //Diagonal traversal of 2-D vector
+vector<vector<int>> m(n, vector<int>(n,0));
+for(int diag = 1; diag < n; ++diag)
+{
+    for(int i=0; i+diag < n; ++i)
+    {
+        m[i][i+diag] = //assign value;
+    }
+}
