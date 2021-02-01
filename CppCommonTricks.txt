@@ -417,7 +417,6 @@ Furthermore sets also allow random deletion.
 //to delete the integer '6'
 auto it = pq.find(6);
 pq.erase(it);
-
 --------------------------------------------------------------------------------
 35. //Diagonal traversal of 2-D vector
 vector<vector<int>> m(n, vector<int>(n,0));
@@ -428,3 +427,8 @@ for(int diag = 1; diag < n; ++diag)
         m[i][i+diag] = //assign value;
     }
 }
+--------------------------------------------------------------------------------
+36. // Count number of 1s in a number
+__builtin_popcount = int
+__builtin_popcountl = long int
+__builtin_popcountll = long long
