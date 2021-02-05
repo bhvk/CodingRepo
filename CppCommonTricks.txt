@@ -432,3 +432,19 @@ for(int diag = 1; diag < n; ++diag)
 __builtin_popcount = int
 __builtin_popcountl = long int
 __builtin_popcountll = long long
+--------------------------------------------------------------------------------
+37. //How to tokenize a string into vector based on a delimiter say "/"
+vector<string> FunctionToTokenize(string path) 
+{
+    // Vector of string to save tokens 
+    vector <string> tokens; 
+
+   // stringstream class F 
+   stringstream F(path); 
+   string intermediate; 
+
+    // Tokenizing w.r.t. space '/' 
+    while(getline(F, intermediate, '/')) 
+        tokens.push_back(intermediate); 
+    return tokens;
+}
