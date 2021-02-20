@@ -304,6 +304,39 @@ public:
     }
 };
 ---------------------------------------------------------------------------------------------------------------------------------
+28. b.) Union Find (Simplified) : ref -> https://leetcode.com/discuss/general-discussion/1072418/disjoint-set-union-dsuunion-find
+//find with path compression
+int find(int u)
+{
+    if(u == representative[u])
+        return u;
+    else
+        return representative[u] = find(representative[u]);
+        //compression , if = not used then simply do a recursion call then no compression
+}
+
+//union with rank
+void union(int u, int v)
+{
+    u = find(u);
+    v = find(v);
+    if(u == v)
+        return;
+    else
+    {
+        if(rank[u] < rank[v])
+        {
+            representative[u] = v;
+            rank[v] += rank[u];
+        }
+        else
+        {
+            representative[v] = u;
+            rank[u] += rank[v];
+        }
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------
 29. //2-D vector
 // Create a vector containing n vectors of size m.
     vector<vector<int> > vec( n , vector<int> (m, 0));
@@ -434,17 +467,17 @@ __builtin_popcountl = long int
 __builtin_popcountll = long long
 --------------------------------------------------------------------------------
 37. //How to tokenize a string into vector based on a delimiter say "/"
-vector<string> FunctionToTokenize(string path) 
+vector<string> FunctionToTokenize(string path)
 {
-    // Vector of string to save tokens 
-    vector <string> tokens; 
+    // Vector of string to save tokens
+    vector <string> tokens;
 
-   // stringstream class F 
-   stringstream F(path); 
-   string intermediate; 
+   // stringstream class F
+   stringstream F(path);
+   string intermediate;
 
-    // Tokenizing w.r.t. space '/' 
-    while(getline(F, intermediate, '/')) 
-        tokens.push_back(intermediate); 
+    // Tokenizing w.r.t. space '/'
+    while(getline(F, intermediate, '/'))
+        tokens.push_back(intermediate);
     return tokens;
 }
