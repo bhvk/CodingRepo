@@ -211,7 +211,7 @@ vector<vector<int>> two(){
 }
 ---------------------------------------------------------------------------------------------------------------------------------
 22. //priority_queue
-auto myComp = [](const pair<int, int>& A, const pair<int, int>& B){
+auto myComp = [](const pair<int, double>& A, const pair<int, double>& B){
     return A.second > B.second;
 };
 priority_queue<pair<int, double>, vector<pair<int, double>> ,decltype(myComp)> pq(myComp); //either only first arg or 1,2,3 can't do only arg 1 and 3
@@ -481,3 +481,17 @@ vector<string> FunctionToTokenize(string path)
         tokens.push_back(intermediate);
     return tokens;
 }
+--------------------------------------------------------------------------------
+38. //iota function
+Fills the range [first, last) with sequentially increasing values, starting with value and repetitively evaluating ++value.
+
+vector<int> vec(n);
+int val = 0;
+iota(begin(vec), end(vec), val);
+--------------------------------------------------------------------------------
+39. //sort vector of vector based on ith value of each vector
+vector<vector<int>> tasks;
+sort(begin(tasks), end(tasks), [&](int i, int j){
+    return tasks[i][2] < tasks[j][2];
+});
+--------------------------------------------------------------------------------
