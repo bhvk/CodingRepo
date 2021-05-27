@@ -1,3 +1,6 @@
+
+//Taken from https://www.sanfoundry.com/multiple-choice-questions-c-pointers-function-arguments/
+
 #include <stdio.h>
 #include<stdlib.h>
 #include<string.h>
