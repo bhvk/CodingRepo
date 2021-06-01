@@ -132,7 +132,7 @@ static auto fastio = [](){
 ((arr[i] % k)+k)%k
 ---------------------------------------------------------------------------------------------------------------------------------
 20. //Trie class for small alphas nodes_left_in_next_layerclass Trie
-{
+class Trie{
 	public:
     Trie* children[26];
     bool endOfWord;
@@ -494,4 +494,16 @@ vector<vector<int>> tasks;
 sort(begin(tasks), end(tasks), [&](int i, int j){
     return tasks[i][2] < tasks[j][2];
 });
+--------------------------------------------------------------------------------
+40. //Partial_sum C++ STL : numeric header
+
+int myfun(int a , int b)
+{
+    return (a+ 2*b);
+}
+
+partial_sum(a , a+5 , b , myfun);
+                      ^ new vector/array same size as a
+
+to calculate prefix sum simply use : partial_sum(begin(a), end(a), b);
 --------------------------------------------------------------------------------
