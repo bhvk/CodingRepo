@@ -505,5 +505,8 @@ int myfun(int a , int b)
 partial_sum(a , a+5 , b , myfun);
                       ^ new vector/array same size as a
 
-to calculate prefix sum simply use : partial_sum(begin(a), end(a), b);
+to calculate prefix sum simply use : 
+
+vector<int> b(a.size()+1, 0); //So now to calculate range based sums simply use 1-based indexing on b
+partial_sum(begin(a), end(a), b.begin()+1);
 --------------------------------------------------------------------------------
