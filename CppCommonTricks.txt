@@ -452,6 +452,8 @@ auto it = pq.find(6);
 pq.erase(it);
 --------------------------------------------------------------------------------
 35. //Diagonal traversal of 2-D vector
+//(Diag 1 = [0,0] -> [n-1,n-1] : Top left to bottom right)
+//(Diag 2 = [0,1] -> [n-2,n-1] ) . . . and so on
 vector<vector<int>> m(n, vector<int>(n,0));
 for(int diag = 1; diag < n; ++diag)
 {
