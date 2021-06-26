@@ -597,3 +597,141 @@ int main()
     return 0;
 }
 --------------------------------------------------------------------------------
+44.// CP
+#define endl "\n"
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+#define FIO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+#define ll long long
+#define vi vector<ll>
+#define pb push_back
+#define F first
+#define S second
+#define all(v) (v).begin(),(v).end()
+#define pii pair<ll,ll>
+#define vii vector<pii>
+#define vb  vector<bool>
+#define vvi vector<vi>
+#define vvb vector<vb>
+#define calc_fact(n) tgamma(n+1)
+#define inf LONG_LONG_MAX
+#define MOD 1000000007
+#define mod 998244353
+--------------------------------------------------------------------------------
+45. // SEGMENT TREE
+***Ques: Range Sum Query - Mutable
+
+Given an integer array nums, handle multiple queries of the following types:
+Update the value of an element in nums.
+Calculate the sum of the elements of nums between indices left and right inclusive where left <= right
+
+//Ref : https://www.youtube.com/watch?v=dUkRI0R3sg8&t=10s
+class STNode
+{
+public:
+    STNode* left; STNode* right;
+    int sum, start, end;
+
+    STNode(int start, int end)
+    {
+        this->left = NULL;
+        this->right = NULL;
+        this->sum = 0;
+        this->start = start;
+        this->end = end;
+    }
+};
+
+class NumArray
+{
+public:
+
+    STNode* root = nullptr;
+
+    //TC : O(N)
+//-------------BUILD SEGMENT TREE------------------
+
+    STNode* buildTree(vector<int>& nums, int start, int end)
+    {
+        if(start > end){
+            return nullptr;
+        }
+        else
+        {
+            //PREODER TRAVERSAL --> **** NODE, LEFT, RIGHT ****
+            STNode* ret = new STNode(start, end);  //****NODE****
+            if(start == end)
+            {
+                ret->sum = nums[start]; //LEAF NODES
+            }
+            else
+            {
+                int mid = start + (end-start)/2;
+
+                ret->left = buildTree(nums, start, mid);  //****LEFT****
+                ret->right = buildTree(nums, mid+1,end); //****RIGHT****
+
+                ret->sum = ret->left->sum + ret->right->sum;
+            }
+
+            return ret;
+        }
+    }
+//-------------END OF BUILD SEGMENT TREE------------------
+
+
+
+    NumArray(vector<int>& nums) {
+        root = buildTree(nums,0, nums.size()-1);
+        cout<<"Root sum = "<<root->sum<<endl;
+    }
+
+    void updateHelper(STNode* root, int index, int val)
+    {
+        if(root->start == root->end)
+            root->sum = val;
+
+        else
+        {
+            int mid = root->start + (root->end - root->start)/2;
+
+            if(mid >= index)
+                updateHelper(root->left, index, val);
+            else
+                updateHelper(root->right, index, val);
+
+            root->sum = root->left->sum + root->right->sum;
+        }
+    }
+    void update(int index, int val) {
+        updateHelper(root, index, val);
+    }
+
+
+    int sumRange(int left, int right) {
+        return sumHelper(root, left, right);
+    }
+
+    int sumHelper(STNode* root, int left, int right)
+    {
+        if(root->start == left && root->end == right)
+            return root->sum;
+        else
+        {
+            int mid = root->start + (root->end - root->start)/2;
+            if(mid >= right)
+                return sumHelper(root->left, left, right);
+            else if(mid+1 <= left)
+                return sumHelper(root->right, left, right);
+            else
+                return (sumHelper(root->left, left, mid) + sumHelper(root->right, mid+1, right));
+        }
+    }
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * obj->update(index,val);
+ * int param_2 = obj->sumRange(left,right);
+ */
+--------------------------------------------------------------------------------
