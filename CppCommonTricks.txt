@@ -305,6 +305,9 @@ public:
 };
 ---------------------------------------------------------------------------------------------------------------------------------
 28. b.) Union Find (Simplified) : ref -> https://leetcode.com/discuss/general-discussion/1072418/disjoint-set-union-dsuunion-find
+
+NOTE : USED IN MST (MIN SPANNING TREE) || CYCLE DETECTION IN UN-DIRECTED GRAPHS
+
 //find with path compression
 int find(int u)
 {
