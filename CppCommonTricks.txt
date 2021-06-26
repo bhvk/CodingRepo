@@ -548,7 +548,7 @@ bool canFinish(int n, vector<pair<int, int>>& pre)
 }
 --------------------------------------------------------------------------------
 
-42. //DFS Cycle detection using graph coloring  where [ 0-> not visited; 1->being_visted; 2-> completed/processed]
+42. //DFS Cycle detection (**IN DIRECTED GRAPH**) using graph coloring  where [ 0-> not visited; 1->being_visted; 2-> completed/processed]
 
 bool DFScycle(const vector<vector<int>>& adj, vector<int>& visited, int v)
 {
