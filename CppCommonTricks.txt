@@ -801,3 +801,69 @@ void getComplex(string a, string b){
     sscanf(a.c_str(), "%d+%di",&real_x, &img_x);
     sscanf(b.c_str(), "%d+%di",&real_y, &img_y);
 }
+--------------------------------------------------------------------------------
+//48. How to create an unordered_map of pairs in C++?
+https://www.geeksforgeeks.org/how-to-create-an-unordered_map-of-pairs-in-c/
+
+
+// A hash function used to hash a pair of any kind
+struct myHashFunc {
+	template <class T1, class T2>
+	size_t operator()(const pair<T1, T2>& p) const
+	{
+		auto hash1 = hash<T1>{}(p.first);
+		auto hash2 = hash<T2>{}(p.second);
+		return hash1 ^ hash2;
+	}
+};
+
+int main()
+{
+	// Sending the hash function as a third argument
+	unordered_map<pair<int, int>, bool, myHashFunc> um;
+
+}
+--------------------------------------------------------------------------------
+//49. How to create an unordered_map of user defined class in C++?
+https://www.geeksforgeeks.org/how-to-create-an-unordered_map-of-user-defined-class-in-cpp/
+
+// CPP program to demonstrate working of unordered_map
+// for user defined data types.
+#include <bits/stdc++.h>
+using namespace std;
+
+// Objects of this class are used as key in hash table. This class must implement operator ==() to handle collisions.
+struct Person {
+	string first, last; // First and last names
+
+	Person(string f, string l)
+	{
+		first = f;
+		last = l;
+	}
+
+	// Match both first and last names in case
+	// of collisions.
+	bool operator==(const Person& p) const     //<************* IMPORTANT
+	{
+		return first == p.first && last == p.last;
+	}
+};
+
+class MyHashFunction {
+public:
+
+	// Use sum of lengths of first and last names as hash function.
+	size_t operator()(const Person& p) const    //<************* IMPORTANT
+	{
+		return p.first.length() + p.last.length();
+	}
+};
+
+// Driver code
+int main()
+{
+	unordered_map<Person, int, MyHashFunction> um;
+	Person p1("bhavuk", "kapoor");
+  um[p1] = 100;
+}
