@@ -889,3 +889,13 @@ i – It specifies an iterator to the position of an element in list2 which is t
 first, last – Iterators specifying a range of elements in list2 which is to be transferred in list1.
 The range includes all the elements between first and last, including the element pointed by first but not the one pointed by last.
 --------------------------------------------------------------------------------
+//51. making modification on a temporary is meaningless, C++ doesn't want you to bind non-const reference to a temporary. For example:
+
+int a;
+double &m = a;  // caution:this does not work.
+What if it works?
+a is of type int and is being converted to double. So a temporary is created.
+
+You can modify m, which is bound to a temporary, but almost nothing happens. 
+After the modification, variable a does not change (what's worse? You might think a has changed, which may cause problems).
+--------------------------------------------------------------------------------
