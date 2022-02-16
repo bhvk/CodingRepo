@@ -217,6 +217,8 @@ auto myComp = [](const pair<int, double>& A, const pair<int, double>& B){
 priority_queue<pair<int, double>, vector<pair<int, double>> ,decltype(myComp)> pq(myComp); //either only first arg or 1,2,3 can't do only arg 1 and 3
 //or priority_queue<pair<double, int>> pq ;
 
+Q : The reason of using `std::greater` for creating min heap via `priority_queue` : https://stackoverflow.com/a/32749094/7734112
+
 ---------------------------------------------------------------------------------------------------------------------------------
 23. //ordered set -> to have random access in a set; [can find kth smallest element in set in O(LogN)]
 https://www.geeksforgeeks.org/ordered-set-gnu-c-pbds/#:~:text=About%20ordered%20set,in%20log(n)%20complexity%20.
