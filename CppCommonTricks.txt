@@ -899,6 +899,12 @@ double &m = a;  // caution:this does not work.
 What if it works?
 a is of type int and is being converted to double. So a temporary is created.
 
-You can modify m, which is bound to a temporary, but almost nothing happens. 
+You can modify m, which is bound to a temporary, but almost nothing happens.
 After the modification, variable a does not change (what's worse? You might think a has changed, which may cause problems).
 --------------------------------------------------------------------------------
+//52. Setting precision of float or a double
+
+double val;
+std::stringstream stream;
+stream << std::fixed << std::setprecision(2) << val;
+std::string n = stream.str();
