@@ -1,8 +1,5 @@
-// you can use includes, for example:
-// #include <algorithm>
-
-// you can write to stdout for debugging purposes, e.g.
-// cout << "this is a debug message" << endl;
+//https://stackoverflow.com/questions/56373582/how-can-i-count-how-many-horizontal-brush-strokes-are-required-to-draw-an-array
+//Q : How can I count how many horizontal brush strokes are required to draw an array of buildings?
 
 int getBrushStrokes(vector<int> &buildings) 
 {
