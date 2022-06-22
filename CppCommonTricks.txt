@@ -908,3 +908,62 @@ double val;
 std::stringstream stream;
 stream << std::fixed << std::setprecision(2) << val;
 std::string n = stream.str();
+
+--------------------------------------------------------------------------------
+//53. How to do std::string indexof in C++ that returns index of matching string?
+
+https://stackoverflow.com/questions/651497/how-to-do-stdstring-indexof-in-c-that-returns-index-of-matching-string
+
+Try the "find" function. Compare with string::npos
+
+Here is the example from the article I linked:
+
+string str( "Alpha Beta Gamma Delta" );
+string::size_type loc = str.find( "Omega", 0 );
+
+if( loc != string::npos )
+   cout << "Found Omega at " << loc << endl;
+else
+   cout << "Didn't find Omega" << endl;
+--------------------------------------------------------------------------------
+//54. partition subroutine for quicksort
+
+https://leetcode.com/problems/kth-largest-element-in-an-array/discuss/60309/C%2B%2B-STL-partition-and-heapsort
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int left = 0, right = nums.size() - 1, kth;
+        while (true) {
+            int idx = partition(nums, left, right);
+            if (idx == k - 1) {
+                kth = nums[idx];
+                break;
+            }
+            if (idx < k - 1) {
+                left = idx + 1;
+            } else {
+                right = idx - 1;
+            }
+        }
+        return kth;
+    }
+private:
+    int partition(vector<int>& nums, int left, int right) {
+        int pivot = nums[left], l = left + 1, r = right;
+        while (l <= r) {
+            if (nums[l] < pivot && nums[r] > pivot) {
+                swap(nums[l++], nums[r--]);
+            }
+            if (nums[l] >= pivot) {
+                l++;
+            }
+            if (nums[r] <= pivot) {
+                r--;
+            }
+        }
+        swap(nums[left], nums[r]);
+        return r;
+    }
+};
+--------------------------------------------------------------------------------
