@@ -975,3 +975,6 @@ max(x, y) = (x ^ ((x ^ y) & -(x < y)))
 
 #define mn(x,y) (y ^ ((x ^ y) & -(x < y)))
 --------------------------------------------------------------------------------
+//56. C++ 17 string_view
+string_view can be used for substrings as it won't unnecessarily copy strings in the string pool.
+
