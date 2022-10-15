@@ -978,3 +978,29 @@ max(x, y) = (x ^ ((x ^ y) & -(x < y)))
 //56. C++ 17 string_view
 string_view can be used for substrings as it won't unnecessarily copy strings in the string pool.
 
+--------------------------------------------------------------------------------
+//57. NOTE
+Integer division in c++.
+Both operands sum and i in expression ceil(sum / (i + 1)) are integers. So, sum / (i + 1) follows integer division.
+In this case, (A[0] + A[1] + A[2]) / 3 = (13 + 13 + 20) / 3 = 15.333, but in integer division it becomes 15. As ceil(15) = 15
+
+You must convert at least one operand to double to eliminate integer division. This can be done either by explicit or implicit type-casting. ex. ceil(sum / double(i + 1)) or ceil(sum * 1.0 / (i + 1))
+
+--------------------------------------------------------------------------------
+//58. Minimum double val -> DBL_MIN
+
+In C, use
+
+#include <float.h>
+const double lowest_double = -DBL_MAX;
+
+In C++pre-11, use
+
+#include <limits>
+const double lowest_double = -std::numeric_limits<double>::max();
+
+In C++11 and onwards, use
+
+#include <limits>
+constexpr double lowest_double = std::numeric_limits<double>::lowest();
+--------------------------------------------------------------------------------
