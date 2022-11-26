@@ -1006,3 +1006,12 @@ In C++11 and onwards, use
 #include <limits>
 constexpr double lowest_double = std::numeric_limits<double>::lowest();
 --------------------------------------------------------------------------------
+//59. binary search or lower_bound with custom comparator {lambda} on vector of vectors where inner vector is fixed for eg : jobs = [[1,25,3], [2,6,23], [3,1,11]]
+
+std::lower_bound(jobs.begin()+i+1, jobs.end(), jobs[i][1], [](auto & vec, int value) { 
+                                                                return vec[0] < value;   //change index of inner vector here as per requirement
+                                                            })
+
+Used above logic in question : https://leetcode.com/problems/maximum-profit-in-job-scheduling/description/
+Stackoverflow discussion on lower_bound concept : https://stackoverflow.com/a/49135265/7734112
+--------------------------------------------------------------------------------
