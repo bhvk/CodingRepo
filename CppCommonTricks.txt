@@ -1070,3 +1070,17 @@ FOR EXPLANATION (as to HOW THIS WORKS) follow:
 https://stackoverflow.com/a/28958399/7734112
 
 --------------------------------------------------------------------------------
+//61. Array of Vectors in C++ STL
+
+********* call by value *********
+void dfs(vector<int> adj[])
+
+********* call by reference ********* (if needed to change in original adj list)
+void dfs(vector<int> *adj)
+
+
+main(){
+    vector<int> adj[n+1]; //USE instead of unordered_map<int, vector<int>> adj; if n is fixed and known
+    dfs(adj);
+}
+--------------------------------------------------------------------------------
