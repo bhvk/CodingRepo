@@ -576,6 +576,13 @@ bool DFScycle(const vector<vector<int>>& adj, vector<int>& visited, int v)
 }
 --------------------------------------------------------------------------------
 43. // Modular Exponentiation
+
+      ,------ (A^2) ^ (B/2) ........... B is EVEN
+      |
+A^B = |
+      |
+      `------ (A) * ( A ^ (B-1)) ....... B is ODD
+
 #include <iostream>
 using namespace std;
 #define M 1000000007
