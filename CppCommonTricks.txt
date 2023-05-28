@@ -1096,3 +1096,7 @@ main(){
 
 https://stackoverflow.com/q/6502828
 --------------------------------------------------------------------------------
+
+//63. ODR (One Definition Rule) and using inline function (an explainer): -> https://stackoverflow.com/questions/66528686/basic-odr-violation-member-functions-in-h-files
+
+--------------------------------------------------------------------------------
