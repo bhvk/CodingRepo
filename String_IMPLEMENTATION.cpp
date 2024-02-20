@@ -107,7 +107,8 @@ istream& operator>>(istream& in, String& str){
     //     delete[] buff;
     char *buff = new char[1000];
     // memset(&buff[0], 0, sizeof(buff)); //this was on geeksforgeeks
-    memset(buff, 0, sizeof(buff));
+    // memset(buff, 0, sizeof(buff));
+    memset(buff, 0, 1000*sizeof(buff[0]));
     in >> buff;
 
     str = String(buff);
