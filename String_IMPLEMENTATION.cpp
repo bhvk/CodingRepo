@@ -105,15 +105,15 @@ ostream& operator<<(ostream& out, const String& str){
 istream& operator>>(istream& in, String& str){
     // if(this->buff)
     //     delete[] buff;
-    char *buff = new char[1000];
+    char *temp = new char[1000];
     // memset(&buff[0], 0, sizeof(buff)); //this was on geeksforgeeks
     // memset(buff, 0, sizeof(buff));
-    memset(buff, 0, 1000*sizeof(buff[0]));
-    in >> buff;
+    memset(temp, 0, 1000*sizeof(temp[0]));
+    in >> temp;
 
-    str = String(buff);
-    delete[] buff;
-    // strcpy(str.buff, buff);
+    str = String(temp);
+    delete[] temp;
+    // strcpy(str.buff, temp);
     return in;
     
 }
