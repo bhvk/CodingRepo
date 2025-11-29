@@ -1113,3 +1113,30 @@ std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::os
     return stream << static_cast<typename std::underlying_type<T>::type>(e);
 }
 --------------------------------------------------------------------------------
+//65. Rule of 5
+class Buffer {
+public:
+    // 1. Destructor
+    // "Clean up the mess when I die."
+    ~Buffer();
+
+    // 2. Copy Constructor
+    // "Create a new me by cloning 'other'."
+    Buffer(const Buffer& other);
+
+    // 3. Copy Assignment
+    // "I already exist. Wipe my current data and clone 'other' into me."
+    Buffer& operator=(const Buffer& other);
+
+    // 4. Move Constructor (The && is the key!)
+    // "Create a new me by stealing the guts of 'other'."
+    Buffer(Buffer&& other) noexcept;
+
+    // 5. Move Assignment
+    // "I already exist. Wipe my data and steal the guts of 'other'."
+    Buffer& operator=(Buffer&& other) noexcept;
+};
+
+NOTE: Always mark Move operations as noexcept if possible. 
+This allows standard containers (like std::vector) to resize efficiently.
+--------------------------------------------------------------------------------
